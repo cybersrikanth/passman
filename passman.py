@@ -109,18 +109,50 @@ def savedCredentials():
         print("No saved credentials found")
 
 
-def newCredential():
-    global data, Login, userName, PASSWD
-    website = input("Enter url/website : ").lower()
-    username = input("Enter username : ")
+def insertCredential(website, username, update):
+    global data, userName, PASSWD
     passwd = generatePass(int(input("Enter length of password to be generated: ")))
     print('generated password is:', retRed(passwd))
     i = Credentials(encrypt(website, PASSWD), encrypt(username, PASSWD), encrypt(passwd, PASSWD))
+    if not update == None:
+        del data[0][update]
     data[0].append(i)
     with open(folder + userName, 'wb') as f:
         pickle.dump(data, f)
     with open(folder + userName, 'rb') as f:
         data = pickle.load(f)
+    return True
+
+def newCredential():
+    global data, PASSWD
+    website = input("Enter url/website : ").lower()
+    username = input("Enter username : ")
+    for x,i in enumerate(data[0]):
+        j = i.fetch()
+        if website == decrypt(j['website'],PASSWD).decode() and username == decrypt(j['username'],PASSWD).decode():
+            print(retRed('Username already exist for this website'))
+            print('\t Press',retRed('1'),'to overwrite (This will update password)')
+            print('\t Press',retRed('2'),'to cancel')
+            try:
+                c = int(input("Enter your choice: "))
+            except:
+                c = 2
+                print('Invalid input')
+            if c == 1:
+                if insertCredential(website, username, update =x):
+                    print('\t Password updated successfully')
+                else:
+                    print(retRed('Error Occured'))
+                break
+            else:
+                print(retRed('operation cancelled'))
+                break
+    else:
+        if insertCredential(website, username, update = None):
+            print('Data inserted Successfully')
+        else:
+            print(retRed('Error Occured'))
+
 
 
 def get_private_key(password):
