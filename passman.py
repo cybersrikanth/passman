@@ -36,6 +36,40 @@ folder = os.environ['HOME'] + '/.passman/'
 def retRed(skk):
     return "\033[91m{}\033[00m".format(skk)
 
+# The below code block is under development
+# 
+
+class cyberSecret:
+    def __init__(self):
+        self.rounds = 20
+        self.cipher = "csV1"
+    def genHash(self, string):
+        self.salt = generatePass()
+        for i in range(2**self.rounds):
+            string = sha256((self.salt + string).encode()).hexdigest()
+        string = "${}${}${}${}".format(self.cipher,self.rounds,self.salt,string)
+        print(string)
+    def compareHash(self,string, hash):
+        hash = hash.split("$")
+        self.rounds = int(hash[2])
+        self.salt = hash[3]
+        if hash[1]=="csV1":
+            for i in range(2**self.rounds):
+                string = sha256((self.salt + string).encode()).hexdigest()
+            if string == hash[4]:
+                return True
+        return False
+
+
+def changePass():
+    test = cyberSecret()
+    test.genHash("hello")
+    print(test.compareHash("hello","$csV1$20$190#f</1FJ$472dee5a4b4531e66b3272617c6d85dec1e5626ac72e5a997cd841883eb00238"))
+    print(test.compareHash("hello","$csV1$20$190#f</1FJ$472dee5a4b4531e66b3272617c6d85dec1e5626ac72e5a997cd841883eb00237"))
+    print(test.compareHash("hellO","$csV1$20$190#f</1FJ$472dee5a4b4531e66b3272617c6d85dec1e5626ac72e5a997cd841883eb00237"))
+# 
+# The above code is under development
+
 
 def generatePass(length=10):
     mix = (capsAlpha, smallAlpha, numbers, specialChar)
@@ -98,15 +132,28 @@ def savedCredentials():
     print()
     if len(data[0]) > 0:
         data1 = data[0]
-        for i in data1:
+        for index,i in enumerate(data1):
             j = i.fetch()
-            print("Website or URL =", decrypt(j['website'], PASSWD).decode())
+            print(str(index+1)+") URL =", decrypt(j['website'], PASSWD).decode())
             print("Username =", decrypt(j['username'], PASSWD).decode())
             print("Password =", retRed(decrypt(j['passwd'], PASSWD).decode()))
             print()
         print("#" * 50)
     else:
         print("No saved credentials found")
+
+# def changePass():
+#     global data, PASSWD
+#     decrypted = []
+#     data1 = data[0]
+#     for index,datum in enumerate(data1):
+#         tmp = {}
+#         j = datum.fetch()
+#         tmp['website'] = decrypt(j['website'], PASSWD).decode()
+#         tmp['username'] = decrypt(j['username'], PASSWD).decode()
+#         tmp['passwd'] = decrypt(j['passwd'], PASSWD).decode()
+#         decrypted.append(tmp)
+#     print(decrypted)
 
 
 def insertCredential(website, username, update,passwd=''):
@@ -123,6 +170,28 @@ def insertCredential(website, username, update,passwd=''):
     with open(folder + userName, 'rb') as f:
         data = pickle.load(f)
     return True
+
+def deleteCredential():
+    index = int(input("Enter index of the credential to be deleted: "))
+    global data, userName, PASSWD
+    for ind,datum in enumerate(data[0]):
+        j = datum.fetch()
+        if ind+1 == index:
+            print("deleting...",decrypt(j['username'], PASSWD).decode(), retRed("@"), decrypt(j['website'], PASSWD).decode())
+            if input("Cannot be undone... type \"yes\" to continue: ") == "yes":
+                del data[0][ind]
+                with open(folder + userName, 'wb') as f:
+                    pickle.dump(data, f)
+                with open(folder + userName, 'rb') as f:
+                    data = pickle.load(f)
+                print("data removed successfully")
+                break
+            else:
+                print("operation cancelled")
+                break
+    else:
+        print("invalid index")
+
 
 def newCredential():
     global data, PASSWD
@@ -184,7 +253,9 @@ def decrypt(enc, password):
 options = {
     1: savedCredentials,
     2: newCredential,
-    3: logout
+    3: deleteCredential,
+    4: logout,
+    5: changePass
 }
 
 while not Login:
@@ -213,8 +284,10 @@ while Login:
     print("\nWelcome", userName)
     print("\nChoose your option...")
     print("1 --- View all saved credentials")
-    print("2 --- Create new credential")
-    print("3 --- Logout and Exit")
+    print("2 --- Create or update credential")
+    print("3 --- delete credential")
+    print("4 --- Logout and Exit")
+    print("5 --- change password")
     try:
         choice = int(input("Enter your choice: "))
         options[choice]()
