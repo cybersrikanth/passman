@@ -109,10 +109,11 @@ def savedCredentials():
         print("No saved credentials found")
 
 
-def insertCredential(website, username, update):
+def insertCredential(website, username, update,passwd=''):
     global data, userName, PASSWD
-    passwd = generatePass(int(input("Enter length of password to be generated: ")))
-    print('generated password is:', retRed(passwd))
+    if len(passwd)==0:
+        passwd = generatePass(int(input("Enter length of password to be generated: ")))
+    print('your password is:', retRed(passwd))
     i = Credentials(encrypt(website, PASSWD), encrypt(username, PASSWD), encrypt(passwd, PASSWD))
     if not update == None:
         del data[0][update]
@@ -139,7 +140,8 @@ def newCredential():
                 c = 2
                 print('Invalid input')
             if c == 1:
-                if insertCredential(website, username, update =x):
+                temp = input('Press enter to generate strong password or enter your own password: ')
+                if insertCredential(website, username, x, temp):
                     print('\t Password updated successfully')
                 else:
                     print(retRed('Error Occured'))
@@ -148,7 +150,8 @@ def newCredential():
                 print(retRed('operation cancelled'))
                 break
     else:
-        if insertCredential(website, username, update = None):
+        passwd = input('Press enter to generate strong password or enter your own password: ')
+        if insertCredential(website, username, None,passwd):
             print('Data inserted Successfully')
         else:
             print(retRed('Error Occured'))
