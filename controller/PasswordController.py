@@ -66,6 +66,10 @@ class PasswordController:
             print("View Credential :")
             print("===================")
             self.PasswordForm.passLines(1)
+            if len(chunked)==0:
+                print("No credentials found..")
+                sleep(2)
+                return
             for index, value in enumerate(chunked[page]):
                 print((n*page)+index+1,"=>",value)
             self.PasswordForm.passLines(2)
@@ -88,29 +92,36 @@ class PasswordController:
                     for index, value in enumerate(chunked_names[page]):
                         print((n*page)+index+1,"=>",value)
                     self.PasswordForm.passLines(2)
-                    choice1 = input("next = 'N/n' |  prev = 'P/p' | back ='B/b' :")
+                    choice1 = input("next = 'N/n' |  prev = 'P/p' | back ='B/b' | delete ='D/d-index' :")
                     if choice1.isdigit() and len(user_names)>=int(choice1) and int(choice1)>0:
                         choice1 = int(choice1)
                         self.PasswordForm.refreshScreen()
                         self.greet()
                         self.PasswordForm.passLines(1)
                         print("View Credential :")
-                        print("===================")
+                        self.PasswordForm.passLines(1)
                         self.PasswordForm.printCenter("> | "+website+" | <","=")
                         self.PasswordForm.passLines(1)
                         print("UserName = ", selected_credentials[choice1-1].username)
                         print("Password = ", selected_credentials[choice1-1].password)
                         self.PasswordForm.passLines(2)
-                        for i in range(30,0):
-                            self.PasswordForm.printRight(str(i)+" seconds---","-")
-                            sleep(1)
-                            self.PasswordForm.clearLines(2)
+                        try:
+                            for i in range(30, 1, -1):
+                                self.PasswordForm.printRight(str(i)+" seconds---","-")
+                                sleep(1)
+                                self.PasswordForm.clearLines(2)
+                        except KeyboardInterrupt:
+                            break
                     elif choice1.lower()=="n" and len(chunked_names)>page1+1:
                         page1 += 1
                     elif choice1.lower()=="p" and page1>0:
                         page1 -= 1
                     elif choice1.lower() == "b":
                         break
+                    elif len(choice1)>1 and choice1.lower()[0] == "d" and len(choice1.split("-"))==2 and choice1.split("-")[1].isdigit() and 0<int(choice1.split("-")[1])<=len(selected_credentials):
+                        confirm = input("Type 'CONFIRM' to delete credential : ")
+                        if confirm == "CONFIRM":
+                            self.delete(selected_credentials[int(choice1.split("-")[1])-1])
                     else:
                         self.PasswordForm.clearLines(2)
             elif choice.lower()=="n" and len(chunked)>page+1:
@@ -126,8 +137,13 @@ class PasswordController:
         #     print(i.username)
         # sleep(10)
 
-    def delete(self):
-        pass
+    def delete(self, credential):
+        print(credential.id) 
+        result = self.db.query("delete from Password where id = ? and user = ?",(credential.id, self.User.id))
+        if result['status']:
+            print("credential deleted ...")
+        else:
+            print(result["message"])
 
     def decryptAll(self):
         self.data = []
