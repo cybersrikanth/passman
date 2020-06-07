@@ -1,12 +1,12 @@
 if [ $1 = "push" ];
 then
-./env/bin/python backup_man.py push
+~/.passman-v2/env/bin/python backup_man.py push
 elif [ $1 = "pull" ];
 then
-./env/bin/python backup_man.py pull
+~/.passman-v2/env/bin/python backup_man.py pull
 elif [ $1 = "signout" ];
 then
 rm token.pickle
 else
-./env/bin/python init.py
+~/.passman-v2/env/bin/python init.py
 fi
