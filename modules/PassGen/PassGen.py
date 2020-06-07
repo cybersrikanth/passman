@@ -1,4 +1,5 @@
 import random
+from time import sleep
 
 class PassGen:
     password = []
@@ -13,6 +14,7 @@ class PassGen:
         self.length = 10
         self.allow = ("lower", "upper", "number", "special")
         self.shuffle = True
+        self.password = []
 
     def generate(self):
         allowLength = len(self.allow)

@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 env/
 passman.db
+passman.db.enc
+token.pickle
+credentials.json

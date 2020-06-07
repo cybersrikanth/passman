@@ -13,6 +13,9 @@ class Form:
     def getScreenSize(self):
         self.columns, self.lines = os.get_terminal_size()
 
+    def retRed(self, string):
+        return "\033[91m{}\033[00m".format(string)
+
     def allocateScreen(self):
         self.getScreenSize()
         print("-"*self.columns,end="")

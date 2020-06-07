@@ -1,4 +1,3 @@
-git clone https://github.com/cybersrikanth/passman.git --branch v2.0
+git clone --single-branch --branch v2.0 https://github.com/cybersrikanth/passman.git
 mv passman ~/.passman-v2
-cd ~/.passman-v2
 bash ~/.passman-v2/install.sh
