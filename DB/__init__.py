@@ -1,11 +1,6 @@
 import sqlite3
 
 
-# Create table
-# c.execute('drop table if exists User')
-# c.execute('drop table if exists Password')
-# c.execute("CREATE TABLE if not exists User (id INTEGER primary key AUTOINCREMENT, name text NOT NULL, password text NOT NUll, updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL)")
-# c.execute("CREATE TABLE if not exists Password (id INTEGER primary key AUTOINCREMENT, user int NOT NULL, password text NOT NULL, updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, FOREIGN KEY(user) REFERENCES User(id))")
 
 class DB:
     def connect(self):

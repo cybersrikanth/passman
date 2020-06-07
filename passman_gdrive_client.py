@@ -1,4 +1,3 @@
-from __future__ import print_function
 import pickle
 import os.path
 from googleapiclient.discovery import build
@@ -15,8 +14,6 @@ def main(args):
     SCOPES = ['https://www.googleapis.com/auth/drive']
 
     folder_id = None
-    # drive_service = service.DriveService('./credentials.json')
-    # args = sys.argv
 
     if not (args== "push" or args=="pull"):
         print("Exactly one argument required push/pull")
@@ -67,7 +64,6 @@ def main(args):
         }
         file = service.files().create(body=file_metadata, fields='id').execute()
         folder_id = file.get('id')
-    # page_token = None
 
 
     #searching file in passman folder

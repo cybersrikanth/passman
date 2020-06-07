@@ -25,10 +25,7 @@ class Form:
 
     def clearScreen(self):
         self.getScreenSize()
-        # sleep(2)
         print((self.clearCode+self.moveUpCode)*int(self.lines-1),end="")
-        # sleep(2)
-        # exit()
         print((self.clearCode+self.newLine)*int(self.lines-1),end="")
         print((self.clearCode+self.moveUpCode)*int(self.lines),end="")
 
@@ -37,7 +34,6 @@ class Form:
         self.allocateScreen()
 
     def clearLines(self, lines):
-        # print((self.moveUpCode+(self.clearCode*self.columns))*int(lines),end="")
         if lines == 1:
             print(self.clearCode,end="")
         else:

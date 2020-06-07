@@ -8,6 +8,8 @@ from time import sleep
 refresh = 0
 while True:
     try:
+        db = DB()
+        db.connect()
         login = LoginForm()
         if refresh:
             login.refreshScreen()
@@ -17,8 +19,6 @@ while True:
         auth = UserController()
         auth.home()
 
-        db = DB()
-        db.connect()
         db.close()
     except KeyboardInterrupt:
         login.clearScreen()
