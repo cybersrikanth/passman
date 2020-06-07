@@ -19,9 +19,9 @@ else
 python3 -m pip install virtualenv
 fi
 
-virtualenv ~/passman-v2/env
+virtualenv ~/.passman-v2/env
 
-~/passman-v2/env/bin/python -m pip install -r ~/passman-v2/requirments.txt
+~/.passman-v2/env/bin/python -m pip install -r ~/.passman-v2/requirments.txt
 
-sudo ln -s ~/passman-v2/start.sh /usr/bin/passman
+sudo ln -s ~/.passman-v2/start.sh /usr/bin/passman
 chmod 755 /usr/bin/passman
