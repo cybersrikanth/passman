@@ -18,6 +18,8 @@ Note: If you installed older version of passman please remove them. This version
 * Signin with the google account where you want to store the backup.
 * Choose `desktop app` as your OAuth client and click create button.
 * Download the client configuration. (make sure the name of the file is `credentials.json` inside Downloads folder).
+
+### installation
 ~~~~ 
 wget -O - https://raw.githubusercontent.com/cybersrikanth/passman/v2.0/one_line_install.sh | bash
 ~~~~
