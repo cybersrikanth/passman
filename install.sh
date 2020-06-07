@@ -18,6 +18,7 @@ then
 echo "virtualenv installed"
 else
 python3 -m pip install virtualenv
+sudo apt install python3-virtualenv
 fi
 
 virtualenv ~/.passman-v2/env
