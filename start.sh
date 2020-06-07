@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ $1 = "push" ];
 then
 ~/.passman-v2/env/bin/python backup_man.py push
