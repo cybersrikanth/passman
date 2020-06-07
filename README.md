@@ -6,7 +6,7 @@ Password Manager and Generator [v-2.0]
 Note: If you installed older version of passman please remove them. This version of passman will work perfectly in any gnome based terminal.
 
 ### Requirements
-* Python3
+* Python3.7
 * Python3 pip
 * virtual environment [virtualenv] (recomended but not necessary)
 * Google drive ( you can ignore this if you dont want cloud backup)
