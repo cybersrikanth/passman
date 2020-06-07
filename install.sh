@@ -23,5 +23,5 @@ virtualenv ~/.passman-v2/env
 
 ~/.passman-v2/env/bin/python -m pip install -r ~/.passman-v2/requirments.txt
 
-sudo ln -s ~/.passman-v2/start.sh /usr/bin/passman
+sudo ln -s ~/.passman-v2/start.sh /usr/bin/passman --force
 chmod 755 /usr/bin/passman
