@@ -4,7 +4,6 @@ from model import Password
 from DB import DB
 from modules.Locker import Locker
 from modules.Loaders import DotLoader
-from controller import UserController
 import cursor
 
 class PasswordController:
@@ -230,18 +229,15 @@ class PasswordController:
                     self.view()
                 elif choice == 3:
                     self.PasswordForm.clearScreen()
-                    user = UserController.UserController()
-                    user.home()
+                    break
                 elif choice ==4:
                     if self.deleteUser():
                         self.PasswordForm.clearScreen()
-                        user = UserController.UserController()
-                        user.home()
+                        break
                 else:
                     continue
             except KeyboardInterrupt:
                 self.PasswordForm.clearScreen()
-                user = UserController.UserController()
-                user.home()
+                break
             except ValueError:
                 continue
