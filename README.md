@@ -1,6 +1,10 @@
 # passman
 Password Manager and Generator
 
+~~~
+Latest version is available in branch v2.0, Please switch branch to v2.0
+~~~
+
 ### Created for Linux... If you are using windows, you may have to modify source code as this program based on FSH standards of Linux
 
 This is a simple password genrator and manager built with python.
