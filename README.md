@@ -20,6 +20,9 @@ Note: If you installed older version of passman please remove them. This version
 * Download the client configuration. (make sure the name of the file is `credentials.json` inside Downloads folder).
 
 ### automatic installation
+
+[![Passman V-2.0](https://raw.githubusercontent.com/cybersrikanth/passman/v2.0/Screenshot%20from%202020-06-28%2014-18-28.png)](https://www.youtube.com/watch?v=RqumJNVxE2Q "Passman V-2.0")
+
 ~~~~ 
 wget -O - https://raw.githubusercontent.com/cybersrikanth/passman/v2.0/one_line_install.sh | bash
 ~~~~
