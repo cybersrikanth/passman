@@ -110,8 +110,8 @@ class PasswordController:
                         print("===================")
                         self.PasswordForm.printCenter("> | "+website+" | <","=")
                         self.PasswordForm.passLines(1)
-                        for index, value in enumerate(chunked_names[page]):
-                            print((n*page)+index+1,"=>",value)
+                        for index, value in enumerate(chunked_names[page1]):
+                            print((n*page1)+index+1,"=>",value)
                         self.PasswordForm.passLines(2)
                         choice1 = input("next = 'N/n' |  prev = 'P/p' | back ='B/b' | delete ='D/d-index' :")
                         if choice1.isdigit() and len(user_names)>=int(choice1) and int(choice1)>0:

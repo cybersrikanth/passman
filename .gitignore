@@ -5,3 +5,6 @@ passman.db
 passman.db.enc
 token.pickle
 credentials.json
+
+# debugger config vscode
+launch.json
